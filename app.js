@@ -13,14 +13,23 @@ app.get('/', (req, res) => {
   res.redirect('/restaurants')
 })
 
-app.get('/restaurants', (req, res) => {
-  res.render('index',{restaurants})
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  const restaurant = restaurants.find((r) => r.id.toString() === id)
+  res.render('show', { restaurant })
 })
 
-app.get('/restaurants/:id', (req, res) => {
-  const id =req.params.id
-  const restaurant = restaurants.find((restant) => restant.id.toString() === id)
-  res.render('show', {restaurant})
+app.get('/restaurants', (req, res) => {
+  const keyword = req.query.keyword?.trim().toLowerCase()
+  const matchedRestaurant = keyword ? restaurants.filter((r) =>
+    Object.values(r).some((property) => {
+      if (typeof property === 'string') {
+        return property.toLowerCase().includes(keyword.toLowerCase())
+      }
+      return false
+    })
+  ) : restaurants
+  res.render('index', { restaurants: matchedRestaurant, keyword })
 })
 
 app.listen(port, () => {

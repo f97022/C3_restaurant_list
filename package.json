@@ -1,0 +1,17 @@
+{
+  "name": "c3_restaurant_list",
+  "version": "1.0.0",
+  "description": "C3_HomeWork_restaurant_list",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

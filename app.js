@@ -1,20 +1,24 @@
 const express = require('express')
+const { engine } = require('express-handlebars')
 const app = express()
 const port = 3000
 
+app.engine('.hbs', engine({ extname: '.hbs' }))
+app.set('view engine', '.hbs')
+app.set('views', './views')
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  res.redirect('/resraurants')
+  res.redirect('/restaurants')
 })
 
-app.get('/resraurants', (req, res) => {
-  res.send('listing resraurants')
+app.get('/restaurants', (req, res) => {
+  res.render('index')
 })
 
-app.get('/resraurant/:id', (req, res) => {
+app.get('/restaurant/:id', (req, res) => {
   const id =req.params.id
-  res.send(`read resraurant: ${id}`)
+  res.send(`read restaurant: ${id}`)
 })
 
 app.listen(port, () => {
